@@ -1,0 +1,42 @@
+{{ if .Values.redis.install }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: master
+          image: redis
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: {{ .Values.signaturecloud.config.redis.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: redis
+spec:
+  ports:
+    - port: {{ .Values.signaturecloud.config.redis.port }}
+      targetPort: {{ .Values.signaturecloud.config.redis.port }}
+  selector:
+    app: redis
+{{ end }}

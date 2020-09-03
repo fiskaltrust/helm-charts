@@ -1,0 +1,60 @@
+signaturecloud:
+  # Set docker image and tag for the signaturecloud
+  image:
+    name: fta240acr.azurecr.io/fiskaltrust/signaturecloud-mysql-fiskaly # use local image called `fiskaltrustsignaturecloud`
+    tag: latest
+    pullSecret: false
+  # configuration settings for the signaturecloud
+  config:
+    redis:
+      # hostname of the redis instance (only change if using external redis instance)
+      host: redis
+      # port of the redis instance (also sets the port for the internal redis instance)
+      port: 6379
+      channel: signaturecloud_dev
+    applicationInsights:
+      instrumentationKey: ''
+    # helipad used by the signaturecloud
+    helipad:
+      baseUrl: https://helipad-sandbox.fiskaltrust.cloud
+    # number of signaturecloud instances
+    replicas: 10
+    # pod limits
+    limits:
+      cpu: 100m
+      memory: 100Mi
+    # signaturecloud url prefix
+    prefix: /
+    # http timeouts
+    timeout: 
+      all: 0
+      connect: 15_000
+
+redis:
+  # installs redis
+  install: true
+
+ambassador:
+  # installs ambassador
+  install: true
+  config:
+    # tls config. see https://www.getambassador.io/docs/latest/howtos/tls-termination/#create-a-self-signed-certificate for information about `cert` and `key` files.
+    # you can use `--set-file ambassador.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
+    # the cert file may also contain intermediate certificates
+    tls: # unset `tls` to disable.
+      # set cert as base64 encoded file contents
+      crtBase64: false
+      # set key as base64 encoded file contents
+      keyBasa64: false
+      # set cert as file contents
+      crt: null
+      # set key as file contents
+      key: null
+    # hostname by which ambasador is reachable
+    hostname: "*"
+  # controls the replicacount of ambassador
+  replicaCount: 2
+
+mysql:
+  # installs mysql
+  install: false # only for development. never enable this in production.

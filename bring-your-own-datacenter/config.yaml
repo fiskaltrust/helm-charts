@@ -1,0 +1,16 @@
+mysql: 
+  install: true 
+ 
+signaturecloud: 
+  image: 
+    pullSecret: fta240acr-auth 
+  config: 
+    replicas: 5
+    limits: 
+      cpu: null 
+ 
+ambassador: 
+  config: 
+    tls:
+
+local: true

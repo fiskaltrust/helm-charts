@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ft-signaturecloud
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.signaturecloud.config.replicas }}
+  selector:
+    matchLabels:
+      app: ft-signaturecloud
+  template:
+    metadata:
+      labels:
+        app: ft-signaturecloud
+    spec:
+      {{- if .Values.signaturecloud.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.signaturecloud.image.pullSecret }}
+      {{- end }}
+      containers:
+        - name: ft-signaturecloud
+          {{- if .Values.local }}
+          imagePullPolicy: IfNotPresent
+          {{- end }}
+          image: {{ .Values.signaturecloud.image.name }}{{if .Values.signaturecloud.image.tag }}:{{ .Values.signaturecloud.image.tag }}{{ end }}
+          resources:
+            limits:
+            {{- range $key, $value := .Values.signaturecloud.config.limits }}
+              {{ $key }}: {{ $value }}
+            {{- end }}
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          env:
+            - name: Redis__ConnectionString
+              value: {{ .Values.signaturecloud.config.redis.host }}:{{ .Values.signaturecloud.config.redis.port }}
+            - name: Redis__Channel
+              value: {{ .Values.signaturecloud.config.redis.channel }}
+            - name: ApplicationInsights__InstrumentationKey
+              value: {{ .Values.signaturecloud.config.applicationInsights.instrumentationKey }}
+            - name: Helipad__BaseUrl
+              value: {{ .Values.signaturecloud.config.helipad.baseUrl }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ft-signaturecloud
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+    - name: https
+      protocol: TCP
+      port: 443
+  selector:
+    app: ft-signaturecloud
