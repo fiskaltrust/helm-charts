@@ -1,0 +1,21 @@
+parameters:
+  - name: additionalCommandOptions
+    default: ''
+  - name: charts
+    type: object
+    default: {}
+
+steps:
+- ${{ each chart in parameters.charts }}:
+  - checkout: self
+
+  - task: HelmInstaller@1
+
+  - pwsh: helm lint ${{ chart }} ${{ parameters.additionalCommandOptions }}
+    displayName: Lint Chart
+
+  - pwsh: helm package ${{ chart }} --dependency-update -d repo/${{ chart }} ${{ parameters.additionalCommandOptions }}
+    displayName: Package Chart
+
+  - publish: repo/${{ chart }}
+    artifact: ${{ chart }}

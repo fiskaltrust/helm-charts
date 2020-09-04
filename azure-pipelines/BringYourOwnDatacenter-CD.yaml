@@ -1,0 +1,50 @@
+resources:
+  repositories:
+    - repository: self
+  pipelines:
+  - pipeline: Packaged
+    source: Repo-CI
+    branch: master
+
+stages:
+- stage: Release_Chart_Dev
+  displayName: Release Chart Dev
+
+  jobs:
+  - deployment: Release_Dev
+    displayName: Release_Dev
+    pool:
+      vmImage: 'windows-latest'
+    environment: 'Charts-BringYourOwnDatacenter-Dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/release.yaml
+            parameters:
+              chart: 'bring-your-own-datacenter'
+              url: https://charts-dev.fiskaltrust.cloud
+              subscription: fiskaltrust-develop
+              storage: fta240helmrepository
+
+- stage: Release_Chart_Prod
+  displayName: Release Chart Prod
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  dependsOn: Release_Chart_Dev
+
+  jobs:
+  - deployment: Release_Prod
+    displayName: Release_Prod
+    pool:
+      vmImage: 'windows-latest'
+    environment: 'Charts-BringYourOwnDatacenter-Prod'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/release.yaml
+            parameters:
+              chart: 'bring-your-own-datacenter'
+              url: https://charts.fiskaltrust.cloud
+              subscription: ft-acp-csp-austria-production
+              storage: fta102helmrepository

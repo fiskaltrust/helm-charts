@@ -1,7 +1,7 @@
 signaturecloud:
   # Set docker image and tag for the signaturecloud
   image:
-    name: fta240acr.azurecr.io/fiskaltrust/signaturecloud-mysql-fiskaly # use local image called `fiskaltrustsignaturecloud`
+    name: fta240acr.azurecr.io/fiskaltrust/signaturecloud-mysql-fiskaly
     tag: latest
     pullSecret: false
   # configuration settings for the signaturecloud
@@ -41,11 +41,13 @@ ambassador:
     # tls config. see https://www.getambassador.io/docs/latest/howtos/tls-termination/#create-a-self-signed-certificate for information about `cert` and `key` files.
     # you can use `--set-file ambassador.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
     # the cert file may also contain intermediate certificates
-    tls: # unset `tls` to disable.
+    tls:
+      # enables tls
+      enabled: false
       # set cert as base64 encoded file contents
-      crtBase64: false
+      crtBase64: null
       # set key as base64 encoded file contents
-      keyBasa64: false
+      keyBasa64: null
       # set cert as file contents
       crt: null
       # set key as file contents

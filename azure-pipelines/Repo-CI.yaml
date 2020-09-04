@@ -1,0 +1,18 @@
+resources:
+  repositories:
+    - repository: self
+
+pr:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - '*'
+
+
+steps:
+- template: templates/build.yaml
+  parameters:
+    charts: 
+      - bring-your-own-datacenter

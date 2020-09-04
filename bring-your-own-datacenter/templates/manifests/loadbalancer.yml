@@ -28,7 +28,7 @@ spec:
   hostname: {{ .Values.ambassador.config.hostname | quote }}
   acmeProvider:
     authority: none
-  {{- if .Values.ambassador.config.tls }}
+  {{- if .Values.ambassador.config.tls.enabled }}
   tlsSecret:
     name: tls-cert
   tls:

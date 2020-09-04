@@ -1,0 +1,34 @@
+parameters:
+  chart: ./
+  additionalCommandOptions: ''
+  url: null
+  subscription: ''
+  storage: ''
+
+steps:
+  - download: Packaged
+    artifact: ${{ parameters.chart }}
+
+  - task: HelmInstaller@1
+
+  - pwsh: |
+      try {
+        Invoke-WebRequest -Uri "${{ parameters.url }}" -OutFile "$(Pipeline.Workspace)/index.yaml"
+      } catch {}
+      $merge = ""
+      if(Test-Path index.yaml) {
+        Write-Host "Found old index."
+        $merge = '--merge "$(Pipeline.Workspace)/index.yaml"'
+      }
+      helm repo index "$(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/" --url "${{ parameters.url }}" $($merge) ${{ parameters.additionalCommandOptions }}
+    displayName: Update Index
+
+  - task: AzureFileCopy@4
+    displayName: Upload Repo
+    inputs:
+      sourcePath: $(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/*
+      azureSubscription: ${{ parameters.subscription }}
+      destination: azureBlob
+      storage: ${{ parameters.storage }}
+      containerName: $web
+
