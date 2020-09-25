@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bring-your-own-datacenter
 type: application
-version: 0.1.0-alpha.1
+version: 0.1.0-alpha.2
 keywords:
   - fiskaltrust
   - signaturecloud

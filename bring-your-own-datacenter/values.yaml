@@ -1,7 +1,7 @@
 signaturecloud:
   # Set docker image and tag for the signaturecloud
   image:
-    name: fta240acr.azurecr.io/fiskaltrust/signaturecloud-mysql-fiskaly
+    name: docker.pkg.github.com/fiskaltrust/product-de-bring-your-own-datacenter/signaturecloud-mysql-fiskaly
     tag: latest
     pullSecret: false
   # configuration settings for the signaturecloud
