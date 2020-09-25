@@ -18,9 +18,10 @@ steps:
       $merge = ""
       if(Test-Path "$(Pipeline.Workspace)/index.yaml") {
         Write-Host "Found old index."
-        $merge = '--merge "$(Pipeline.Workspace)/index.yaml"'
+        helm repo index "$(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/" --url "${{ parameters.url }}" --merge "$(Pipeline.Workspace)/index.yaml" ${{ parameters.additionalCommandOptions }}
+      } else {
+        helm repo index "$(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/" --url "${{ parameters.url }}" ${{ parameters.additionalCommandOptions }}
       }
-      helm repo index "$(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/" --url "${{ parameters.url }}" $($merge) ${{ parameters.additionalCommandOptions }}
     displayName: Update Index
 
   - task: AzureFileCopy@4
