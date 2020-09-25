@@ -16,7 +16,7 @@ steps:
         Invoke-WebRequest -Uri "${{ parameters.url }}" -OutFile "$(Pipeline.Workspace)/index.yaml"
       } catch {}
       $merge = ""
-      if(Test-Path index.yaml) {
+      if(Test-Path "$(Pipeline.Workspace)/index.yaml") {
         Write-Host "Found old index."
         $merge = '--merge "$(Pipeline.Workspace)/index.yaml"'
       }
