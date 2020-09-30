@@ -10,7 +10,7 @@ metadata:
   name:  ambassador
   namespace: {{ .Release.Namespace }}
 spec:
-  prefix: {{ .Values.signaturecloud.config.prefix }}
+  prefix: /
   service: ft-signaturecloud.{{ .Release.Namespace }}:80
   resolver: ft-signaturecloud-resolver
   load_balancer:
