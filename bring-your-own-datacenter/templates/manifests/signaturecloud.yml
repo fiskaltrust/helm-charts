@@ -36,10 +36,10 @@ spec:
               value: {{ .Values.signaturecloud.config.redis.host }}:{{ .Values.signaturecloud.config.redis.port }}
             - name: Redis__Channel
               value: {{ .Values.signaturecloud.config.redis.channel }}
-            {{- if .Values.signaturecloud.config.applicationInsights.instrumentationKey }}
+            {{- with .Values.signaturecloud.config.applicationInsights }}{{ if .instrumentationKey }}
             - name: ApplicationInsights__InstrumentationKey
-              value: {{ .Values.signaturecloud.config.applicationInsights.instrumentationKey }}
-            {{- end }}
+              value: {{ .instrumentationKey }}
+            {{- end }}{{ end }}
             - name: Helipad__BaseUrl
               value: {{ .Values.signaturecloud.config.helipad.baseUrl }}
 ---
