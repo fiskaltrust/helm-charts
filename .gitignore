@@ -351,3 +351,4 @@ MigrationBackup/
 
 /*/charts
 /*/config.yaml
+.DS_Store
