@@ -1,7 +1,7 @@
 byodc:
   # Set docker image and tag for the byodc
   image:
-    name: docker.pkg.github.com/fiskaltrust/product-de-bring-your-own-datacenter/byodc-mysql-fiskaly
+    name: ghcr.io/fiskaltrust/byodc-mysql-fiskaly
     # use to override the default version
     tag: 1.3.8-rc2
     pullSecret: false
