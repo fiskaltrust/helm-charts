@@ -1,23 +1,24 @@
-signaturecloud:
-  # Set docker image and tag for the signaturecloud
+byodc:
+  # Set docker image and tag for the byodc
   image:
-    name: docker.pkg.github.com/fiskaltrust/product-de-bring-your-own-datacenter/signaturecloud-mysql-fiskaly
-    tag: latest
+    name: docker.pkg.github.com/fiskaltrust/product-de-bring-your-own-datacenter/byodc-mysql-fiskaly
+    # use to override the default version
+    tag: 1.3.8-rc2
     pullSecret: false
-  # configuration settings for the signaturecloud
+  # configuration settings for the byodc
   config:
     redis:
       # hostname of the redis instance (only change if using external redis instance)
       host: redis
       # port of the redis instance (also sets the port for the internal redis instance)
       port: 6379
-      channel: signaturecloud
+      channel: byodc
     applicationInsights:
       instrumentationKey: null
-    # helipad used by the signaturecloud
+    # helipad used by the byodc
     helipad:
       baseUrl: https://helipad-sandbox.fiskaltrust.cloud
-    # number of signaturecloud instances
+    # number of byodc instances
     replicas: 10
     # pod limits
     limits:

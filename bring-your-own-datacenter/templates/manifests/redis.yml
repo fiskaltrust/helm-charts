@@ -24,7 +24,7 @@ spec:
               cpu: 100m
               memory: 100Mi
           ports:
-            - containerPort: {{ .Values.signaturecloud.config.redis.port }}
+            - containerPort: {{ .Values.byodc.config.redis.port }}
 ---
 apiVersion: v1
 kind: Service
@@ -35,8 +35,8 @@ metadata:
     app: redis
 spec:
   ports:
-    - port: {{ .Values.signaturecloud.config.redis.port }}
-      targetPort: {{ .Values.signaturecloud.config.redis.port }}
+    - port: {{ .Values.byodc.config.redis.port }}
+      targetPort: {{ .Values.byodc.config.redis.port }}
   selector:
     app: redis
 {{ end }}

@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: byodc
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.byodc.config.replicas }}
+  selector:
+    matchLabels:
+      app: byodc
+  template:
+    metadata:
+      labels:
+        app: byodc
+    spec:
+      {{- if .Values.byodc.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.byodc.image.pullSecret }}
+      {{- end }}
+      containers:
+        - name: byodc
+          {{- if .Values.local }}
+          imagePullPolicy: IfNotPresent
+          {{- end }}
+          {{- if .Values.byodc.image.tag }}
+          image: {{ .Values.byodc.image.name }}:{{ .Values.byodc.image.tag -}}
+          {{- else}}
+          image: {{ .Values.byodc.image.name }}:{{ .Chart.Version -}}
+          {{- end }}
+          resources:
+            limits:
+            {{- range $key, $value := .Values.byodc.config.limits }}
+              {{ $key }}: {{ $value }}
+            {{- end }}
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          env:
+            - name: Redis__ConnectionString
+              value: {{ .Values.byodc.config.redis.host }}:{{ .Values.byodc.config.redis.port }}
+            - name: Redis__Channel
+              value: {{ .Values.byodc.config.redis.channel }}
+              {{- with .Values.byodc.config.applicationInsights }}{{ if .instrumentationKey }}
+            - name: ApplicationInsights__InstrumentationKey
+              value: {{ .instrumentationKey }}
+              {{- end }}{{ end }}
+            - name: Helipad__BaseUrl
+              value: {{ .Values.byodc.config.helipad.baseUrl }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: byodc
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+    - name: https
+      protocol: TCP
+      port: 443
+  selector:
+    app: byodc

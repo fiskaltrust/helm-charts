@@ -1,7 +1,7 @@
 apiVersion: getambassador.io/v2
 kind: KubernetesEndpointResolver
 metadata:
-  name: ft-signaturecloud-resolver
+  name: byodc-resolver
   namespace: {{ .Release.Namespace }}
 ---
 apiVersion: getambassador.io/v2
@@ -11,13 +11,13 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   prefix: /
-  service: ft-signaturecloud.{{ .Release.Namespace }}:80
-  resolver: ft-signaturecloud-resolver
+  service: byodc.{{ .Release.Namespace }}:80
+  resolver: byodc-resolver
   load_balancer:
     policy: ring_hash
     header: cashboxid
-  timeout_ms: {{ .Values.signaturecloud.config.timeout.all }}
-  connect_timeout_ms: {{ .Values.signaturecloud.config.timeout.connect }}
+  timeout_ms: {{ .Values.byodc.config.timeout.all }}
+  connect_timeout_ms: {{ .Values.byodc.config.timeout.connect }}
 ---
 apiVersion: getambassador.io/v2
 kind: Host
