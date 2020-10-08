@@ -3,7 +3,7 @@ byodc:
   image:
     name: ghcr.io/fiskaltrust/byodc-mysql-fiskaly
     # use to override the default version
-    tag: 1.3.8-rc2
+    tag: 1.3.9-rc1
     pullSecret: false
   # configuration settings for the byodc
   config:

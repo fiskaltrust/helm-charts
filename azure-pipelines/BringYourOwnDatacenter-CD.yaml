@@ -4,8 +4,11 @@ resources:
   pipelines:
   - pipeline: Packaged
     source: Repo-CI
-    branch: master
-
+    trigger:
+      tags:
+        include:
+        - bring-your-own-datacenter/*
+    
 stages:
 - stage: Release_Chart_Dev
   displayName: Release Chart Dev

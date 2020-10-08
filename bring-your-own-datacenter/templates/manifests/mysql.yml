@@ -1,9 +1,9 @@
-{{ if hasKey .Values "mysql" }}{{ if .Values.mysql.enabled }}
+{{ with.Values.mysql }}{{ if .enabled }}
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: mysql
 spec:
@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ $.Release.Namespace }}
 spec:
   selector:
     matchLabels:
