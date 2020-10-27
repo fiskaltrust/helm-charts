@@ -31,7 +31,7 @@ stages:
 
 - stage: Release_Chart_Prod
   displayName: Release Chart Prod
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/tags/bring-your-own-datacenter/')))
   dependsOn: Release_Chart_Dev
 
   jobs:
