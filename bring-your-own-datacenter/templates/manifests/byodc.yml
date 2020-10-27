@@ -45,7 +45,7 @@ spec:
               value: {{ .instrumentationKey }}
               {{- end }}{{ end }}
             - name: Logging__LogLevel
-              value: {{ .Values.byodc.config.loglevel }}
+              value: {{ .Values.byodc.config.logLevel }}
             - name: Helipad__BaseUrl
               value: {{ .Values.byodc.config.helipad.baseUrl }}
 ---

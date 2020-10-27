@@ -1,6 +1,4 @@
 resources:
-  repositories:
-    - repository: self
   pipelines:
   - pipeline: Packaged
     source: Repo-CI
