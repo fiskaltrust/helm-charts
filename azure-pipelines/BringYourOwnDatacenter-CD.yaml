@@ -6,8 +6,7 @@ resources:
     source: Repo-CI
     trigger:
       tags:
-        include:
-        - bring-your-own-datacenter/*
+      - bring-your-own-datacenter/*
     
 stages:
 - stage: Release_Chart_Dev
