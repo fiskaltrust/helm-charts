@@ -2,8 +2,6 @@ resources:
   pipelines:
   - pipeline: Packaged
     source: Repo-CI
-    tags:
-    - bring-your-own-datacenter/*
     trigger:
       tags:
       - bring-your-own-datacenter/*
