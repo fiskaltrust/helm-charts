@@ -9,6 +9,8 @@ pr:
   paths:
     include:
     - '*'
+
+trigger:
   tags:
     include:
     - '*'
