@@ -9,6 +9,9 @@ pr:
   paths:
     include:
     - '*'
+  tags:
+    include:
+    - '*'
 
 
 steps:
