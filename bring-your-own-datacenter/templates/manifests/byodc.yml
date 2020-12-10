@@ -48,6 +48,11 @@ spec:
               value: {{ .Values.byodc.config.logLevel }}
             - name: Helipad__BaseUrl
               value: {{ .Values.byodc.config.helipad.baseUrl }}
+              {{- with .Values.byodc.proxy }}{{ range $key, $value := . }}{{if $value }}
+            - name: {{ $key | upper }}_PROXY
+              value: {{ $value | quote }}
+              {{- end }}{{ end }}{{ end }}
+            
 ---
 apiVersion: v1
 kind: Service
