@@ -3,8 +3,14 @@ byodc:
   image:
     name: ghcr.io/fiskaltrust/byodc-mysql-fiskaly
     # use to override the default version
-    tag: 1.3.10-rc1
+    tag: 1.3.11-rc1-buster
     pullSecret: false
+  # proxy settings for the byocd container maps to these env vatiables https://docs.docker.com/network/proxy/#set-the-environment-variables-manually
+  proxy:
+    http: null
+    https: null
+    "no": null
+    ftp: null
   # configuration settings for the byodc
   config:
     redis:
@@ -15,7 +21,7 @@ byodc:
       channel: byodc
     applicationInsights:
       instrumentationKey: null
-    # LogLEvel of the byodc logs
+    # LogLevel of the byodc logs
     logLevel: Information
     # helipad used by the byodc
     helipad:
