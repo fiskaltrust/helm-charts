@@ -30,11 +30,11 @@ byodc:
     replicas: 10
     # pod limits
     limits:
-      cpu: 100m
-      memory: 100Mi
+      cpu: 500m
+      memory: 1000Mi
     # http timeouts
     timeout:
-      all: 0
+      all: 300_000
       connect: 15_000
 
 redis:
