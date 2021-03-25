@@ -52,6 +52,18 @@ spec:
             - name: {{ $key | upper }}_PROXY
               value: {{ $value | quote }}
               {{- end }}{{ end }}{{ end }}
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 30
+          startupProbe:
+            httpGet:
+              path: /health/ready
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 5
             
 ---
 apiVersion: v1
