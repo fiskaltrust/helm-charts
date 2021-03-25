@@ -1,6 +1,6 @@
 dependencies:
 - name: ambassador
   repository: https://getambassador.io
-  version: 6.5.18
-digest: sha256:701437f0c83831ce73b83d34ad7bd8d33777542653f2c42fd0f103e08672f29d
-generated: "2021-02-24T12:10:24.6390499+01:00"
+  version: 6.6.0
+digest: sha256:0623fdf464dba23e9ee40b66ba06d41b2b74cbf0ba1b7195d1a4fa57ddc8df87
+generated: "2021-03-25T08:36:38.276647+01:00"

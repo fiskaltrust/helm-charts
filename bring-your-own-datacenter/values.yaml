@@ -34,7 +34,7 @@ byodc:
       memory: 1000Mi
     # http timeouts
     timeout:
-      all: 300_000
+      all: 0
       connect: 15_000
 
 redis:
@@ -63,3 +63,6 @@ ambassador:
     hostname: "*"
   # controls the replicacount of ambassador
   replicaCount: 2
+  scope:
+    # neccesairy for running multiple deployments of byodc each with their own ambassador
+    singleNamespace: true

@@ -11,6 +11,6 @@ sources:
   - https://github.com/fiskaltrust/helm-charts/tree/master/bring-your-own-datacenter
 dependencies:
   - name: ambassador
-    version: 6.5.18
+    version: 6.6.0
     repository: https://getambassador.io
     condition: ambassador.install

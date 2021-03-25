@@ -37,7 +37,7 @@ spec:
             - containerPort: 443
           env:
             - name: Redis__ConnectionString
-              value: {{ .Values.byodc.config.redis.host }}:{{ .Values.byodc.config.redis.port }}
+              value: {{ .Values.byodc.config.redis.host }}.{{ .Release.Namespace }}:{{ .Values.byodc.config.redis.port }}
             - name: Redis__Channel
               value: {{ .Values.byodc.config.redis.channel }}
               {{- with .Values.byodc.config.applicationInsights }}{{ if .instrumentationKey }}
