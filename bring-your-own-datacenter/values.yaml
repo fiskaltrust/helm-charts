@@ -3,7 +3,7 @@ byodc:
   image:
     name: ghcr.io/fiskaltrust/byodc-mysql-fiskaly
     # use to override the default version
-    tag: 1.3.16-buster
+    tag: 1.3-buster
     pullSecret: false
   # proxy settings for the byodc container maps to these env variables https://docs.docker.com/network/proxy/#set-the-environment-variables-manually
   proxy:
