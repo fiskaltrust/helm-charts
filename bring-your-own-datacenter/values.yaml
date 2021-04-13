@@ -34,7 +34,7 @@ byodc:
       memory: 1000Mi
     # http timeouts
     timeout:
-      all: 0
+      all: 900_000
       connect: 15_000
 
 redis:
