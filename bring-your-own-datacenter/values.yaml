@@ -15,7 +15,7 @@ byodc:
   config:
     redis:
       # hostname of the redis instance (only change if using external redis instance)
-      host: redis
+      host: redis.{{ .Release.namespace }}
       # port of the redis instance (also sets the port for the internal redis instance)
       port: 6379
       channel: byodc
