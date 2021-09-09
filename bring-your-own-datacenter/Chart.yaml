@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bring-your-own-datacenter
 type: application
-version: 1.3.22
+version: 1.3.23
 keywords:
   - fiskaltrust
   - byodc
@@ -11,6 +11,6 @@ sources:
   - https://github.com/fiskaltrust/helm-charts/tree/master/bring-your-own-datacenter
 dependencies:
   - name: ambassador
-    version: 6.6.0
-    repository: https://getambassador.io
+    version: 6.9.1
+    repository: https://app.getambassador.io
     condition: ambassador.install
