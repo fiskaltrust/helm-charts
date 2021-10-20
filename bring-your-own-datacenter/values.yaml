@@ -36,6 +36,8 @@ byodc:
     timeout:
       all: 900_000
       connect: 15_000
+    # array of environment variables (see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core) for the byodc deployment
+    env: null
 
 redis:
   # enable redis

@@ -5,7 +5,6 @@
 * Kubernetes cluster > v1.16
 * helm > v3.0
 
-
 ## Installation
 
 ### Create Namespace
@@ -55,3 +54,6 @@ Leave out `-f config.yaml` to install it with default values.
 helm uninstall bring-your-own-datacenter --namespace bring-your-own-datacenter
 kubectl delete namespace bring-your-own-datacenter
 ```
+
+
+<!-- helm dependency update -->
