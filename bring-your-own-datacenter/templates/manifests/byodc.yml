@@ -52,6 +52,9 @@ spec:
             - name: {{ $key | upper }}_PROXY
               value: {{ $value | quote }}
               {{- end }}{{ end }}{{ end }}
+              {{- with .Values.byodc.config.env }}{{ range $value := . }}{{if $value }}
+            - {{ toYaml $value | nindent 14 | trim -}}
+              {{- end }}{{ end }}{{ end }}
           livenessProbe:
             httpGet:
               path: /health/live

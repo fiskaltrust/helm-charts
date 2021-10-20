@@ -13,6 +13,8 @@ byodc:
     ftp: null
   # configuration settings for the byodc
   config:
+    # an array of environment variables (see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core) added to the byodc deployment
+    env: null
     redis:
       # hostname of the redis instance (only change if using external redis instance)
       host: redis.{{ .Release.Namespace }}
