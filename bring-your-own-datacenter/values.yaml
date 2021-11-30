@@ -43,12 +43,10 @@ redis:
   # enable redis
   enabled: true
 
-emissary:
-  # installs emissary-ingress
-  install: true
+loadbalancer:
   config:
     # tls config. see https://www.getambassador.io/docs/latest/howtos/tls-termination/#create-a-self-signed-certificate for information about `cert` and `key` files.
-    # you can use `--set-file emissary.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
+    # you can use `--set-file loadbalancer.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
     # the cert file may also contain intermediate certificates
     tls:
       # enables tls
@@ -63,6 +61,10 @@ emissary:
       key: null
     # hostname by which ambasador is reachable
     hostname: "*"
+
+emissary-ingress:
+  # installs emissary-ingress
+  install: true
   # controls the replicacount of emissary
   replicaCount: 2
   scope:
