@@ -43,12 +43,12 @@ redis:
   # enable redis
   enabled: true
 
-ambassador:
-  # installs ambassador
+emissary:
+  # installs emissary-ingress
   install: true
   config:
     # tls config. see https://www.getambassador.io/docs/latest/howtos/tls-termination/#create-a-self-signed-certificate for information about `cert` and `key` files.
-    # you can use `--set-file ambassador.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
+    # you can use `--set-file emissary.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
     # the cert file may also contain intermediate certificates
     tls:
       # enables tls
@@ -63,8 +63,8 @@ ambassador:
       key: null
     # hostname by which ambasador is reachable
     hostname: "*"
-  # controls the replicacount of ambassador
+  # controls the replicacount of emissary
   replicaCount: 2
   scope:
-    # neccesairy for running multiple deployments of byodc each with their own ambassador
+    # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
     singleNamespace: true

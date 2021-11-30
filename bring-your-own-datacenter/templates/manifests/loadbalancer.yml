@@ -7,7 +7,7 @@ metadata:
 apiVersion: getambassador.io/v2
 kind:  Mapping
 metadata:
-  name:  ambassador
+  name:  emissary
   namespace: {{ .Release.Namespace }}
 spec:
   prefix: /
@@ -25,10 +25,10 @@ metadata:
   name: host
   namespace: {{ .Release.Namespace }}
 spec:
-  hostname: {{ .Values.ambassador.config.hostname | quote }}
+  hostname: {{ .Values.emissary.config.hostname | quote }}
   acmeProvider:
     authority: none
-  {{- if .Values.ambassador.config.tls.enabled }}
+  {{- if .Values.emissary.config.tls.enabled }}
   tlsSecret:
     name: tls-cert
   tls:
