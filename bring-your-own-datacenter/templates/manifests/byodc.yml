@@ -21,6 +21,8 @@ spec:
         - name: byodc
           {{- if .Values.local }}
           imagePullPolicy: IfNotPresent
+          {{- else }}
+          imagePullPolicy: Always
           {{- end }}
           {{- if .Values.byodc.image.tag }}
           image: {{ .Values.byodc.image.name }}:{{ .Values.byodc.image.tag -}}

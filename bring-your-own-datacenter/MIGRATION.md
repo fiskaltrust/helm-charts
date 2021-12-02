@@ -71,21 +71,40 @@ To perform the update the old version of `byodc` needs to be removed and the old
 
 The following steps will update the helm repo, uninstall the helm chart, delete the CRDs and reinstall the new version of the helm chart
 
-```sh
-helm repo update
-helm uninstall <release-name> -n <byodc-namespace>
-kubectl delete crd -l app.kubernetes.io/name=ambassador
-helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.26
-```
+1. List all helm releases
+   ```sh
+   helm list
+   ```
+2. Uninstall the `byodc` release listed by the previous command.
+   ```sh
+   helm uninstall <release-name> -n <byodc-namespace>
+   ```
+   > ***Note:** If helm can not uninstall of find the release the whole namespace can be deleted and recreated like this:*
+   > ```sh
+   > kubectl delete namespace <byodc-namespace>`
+   > `kubectl create namespace <byodc-namespace>`
+   > ```
+3. Delete the old CRDs
+   ```sh
+   kubectl delete crd -l app.kubernetes.io/name=ambassador
+   ```
+4. Update the helm repository
+   ```sh
+   helm repo update
+   ```
+4. Install the new helm chart
+   ```sh
+   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.26
+   ```
 
-> ***Note:** If helm can not uninstall the release the whole namespace can be deleted and recreated instead.*
 
 > ***Example:***
 > *Using release-name and namespace used in the [Quickstart Guide](https://github.com/fiskaltrust/product-de-bring-your-own-datacenter/blob/master/QuickStart.md).
 >
 > ```sh
-> helm repo update
+> helm list
 > helm uninstall bring-your-own-datacenter -n bring-your-own-datacenter
 > kubectl delete crd -l app.kubernetes.io/name=ambassador
+> helm repo update
 > helm install bring-your-own-datcenter fiskaltrust/bring-your-own-datacenter -f new.config.yaml -n bring-your-own-datacenter --version 1.3.26
 > ```
