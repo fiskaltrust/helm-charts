@@ -1,38 +1,80 @@
-apiVersion: getambassador.io/v2
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: emissary-listener-http
+  namespace: {{ .Release.Namespace }}
+spec:
+  port: 8080
+  protocol: HTTPS
+  securityModel: XFP
+  hostBinding:
+    namespace:
+      from: SELF
+    selector:
+      matchLabels:
+        useListener: byodc
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Listener
+metadata:
+  name: emissary-listener-https
+  namespace: {{ .Release.Namespace }}
+spec:
+  port: 8443
+  protocol: HTTPS
+  securityModel: XFP
+  hostBinding:
+    namespace:
+      from: SELF
+    selector:
+      matchLabels:
+        useListener: byodc
+---
+apiVersion: getambassador.io/v3alpha1
 kind: KubernetesEndpointResolver
 metadata:
-  name: byodc-resolver
+  name: emissary-byodc-resolver
   namespace: {{ .Release.Namespace }}
 ---
-apiVersion: getambassador.io/v2
+apiVersion: getambassador.io/v3alpha1
 kind:  Mapping
 metadata:
-  name:  ambassador
+  name:  emissary-mapping
   namespace: {{ .Release.Namespace }}
+  labels:
+    useHost: byodc
 spec:
   prefix: /
   service: byodc.{{ .Release.Namespace }}:80
-  resolver: byodc-resolver
+  resolver: emissary-byodc-resolver
   load_balancer:
     policy: ring_hash
     header: cashboxid
   timeout_ms: {{ .Values.byodc.config.timeout.all }}
   connect_timeout_ms: {{ .Values.byodc.config.timeout.connect }}
 ---
-apiVersion: getambassador.io/v2
+apiVersion: getambassador.io/v3alpha1
 kind: Host
 metadata:
-  name: host
+  name: emissary-host
   namespace: {{ .Release.Namespace }}
+  labels:
+    useListener: byodc
 spec:
-  hostname: {{ .Values.ambassador.config.hostname | quote }}
+  mappingSelector:
+    matchLabels:
+      useHost: byodc
+  hostname: {{ .Values.loadbalancer.config.hostname | quote }}
   acmeProvider:
     authority: none
-  {{- if .Values.ambassador.config.tls.enabled }}
+  {{- if .Values.loadbalancer.config.tls.enabled }}
   tlsSecret:
     name: tls-cert
   tls:
     min_tls_version: v1.2
+  requestPolicy:
+    insecure:
+      action: Redirect
   {{- else }}
   requestPolicy:
       insecure:

@@ -21,6 +21,8 @@ spec:
         - name: byodc
           {{- if .Values.local }}
           imagePullPolicy: IfNotPresent
+          {{- else }}
+          imagePullPolicy: Always
           {{- end }}
           {{- if .Values.byodc.image.tag }}
           image: {{ .Values.byodc.image.name }}:{{ .Values.byodc.image.tag -}}
@@ -34,7 +36,6 @@ spec:
             {{- end }}
           ports:
             - containerPort: 80
-            - containerPort: 443
           env:
             - name: Redis__ConnectionString
               value: {{ tpl .Values.byodc.config.redis.host . }}:{{ .Values.byodc.config.redis.port }}
@@ -79,8 +80,5 @@ spec:
     - name: http
       protocol: TCP
       port: 80
-    - name: https
-      protocol: TCP
-      port: 443
   selector:
     app: byodc

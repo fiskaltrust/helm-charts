@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bring-your-own-datacenter
 type: application
-version: 1.3.24
+version: 1.3.26-rc.1
 keywords:
   - fiskaltrust
   - byodc
@@ -10,7 +10,7 @@ home: https://github.com/fiskaltrust/product-de-bring-your-own-datacenter
 sources:
   - https://github.com/fiskaltrust/helm-charts/tree/master/bring-your-own-datacenter
 dependencies:
-  - name: ambassador
-    version: 6.9.1
+  - name: emissary-ingress
+    version: 7.1.10
     repository: https://app.getambassador.io
-    condition: ambassador.install
+    condition: emissary-ingress.install
