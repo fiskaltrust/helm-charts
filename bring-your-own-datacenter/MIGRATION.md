@@ -1,12 +1,12 @@
 # Migration
 
-## `v1.3.26`
+## `v1.3.28`
 
 ### Background
 
 In this version we updated Ambassador from `1.x` to `2.x` ([See their Migration Guide](https://www.getambassador.io/docs/emissary/latest/topics/install/migrate-to-version-2/)).
 
-Now Emissary, Ambassarods open source ingress has moved to [its own helm chart](https://github.com/emissary-ingress/emissary/tree/master/charts/emissary-ingress#introduction).
+Now Emissary, Ambassadors open source ingress has moved to [its own helm chart](https://github.com/emissary-ingress/emissary/tree/master/charts/emissary-ingress#introduction).
 This means to two things for `byodc`.
 
 1. The `ambassador` [chart dependency](./Chart.yaml) is now `emissary-ingress`
