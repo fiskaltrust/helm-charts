@@ -1,6 +1,6 @@
 # Migration
 
-## `v1.3.28`
+## `v1.3.26`
 
 ### Background
 
