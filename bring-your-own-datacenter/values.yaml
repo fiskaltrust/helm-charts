@@ -70,3 +70,14 @@ emissary-ingress:
   scope:
     # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
     singleNamespace: true
+  service:
+    # these are the ports the emissary-ingeress loadbalancer listenes on
+    ports:
+    - name: http
+      # change this port for http
+      port: 80
+      targetPort: 8080
+    - name: https
+      # change this port for https
+      port: 443
+      targetPort: 8443
