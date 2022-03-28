@@ -71,12 +71,15 @@ emissary-ingress:
     # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
     singleNamespace: true
   service:
-    # these are the ports the emissary-ingeress loadbalancer listenes on
+    # these are the ports the emissary-ingeress loadbalancer listenes on.
+    # always set both entries with all keys in your config.yaml as these are not merged
     ports:
+      # always set name to "http"
     - name: http
       # change this port for http
       port: 80
       targetPort: 8080
+      # always set name to "https"
     - name: https
       # change this port for https
       port: 443
