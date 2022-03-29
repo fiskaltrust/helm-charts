@@ -24,11 +24,7 @@ spec:
           {{- else }}
           imagePullPolicy: Always
           {{- end }}
-          {{- if .Values.byodc.image.tag }}
-          image: {{ .Values.byodc.image.name }}:{{ .Values.byodc.image.tag -}}
-          {{- else}}
-          image: {{ .Values.byodc.image.name }}:{{ .Chart.Version -}}
-          {{- end }}
+          image: {{ .Values.byodc.image.name }}:{{ .Values.byodc.image.tag }}
           resources:
             limits:
             {{- range $key, $value := .Values.byodc.config.limits }}
@@ -41,21 +37,31 @@ spec:
               value: {{ tpl .Values.byodc.config.redis.host . }}:{{ .Values.byodc.config.redis.port }}
             - name: Redis__Channel
               value: {{ .Values.byodc.config.redis.channel }}
-              {{- with .Values.byodc.config.applicationInsights }}{{ if .instrumentationKey }}
+              {{- with .Values.byodc.config.applicationInsights }}
+                {{- if .instrumentationKey }}
             - name: ApplicationInsights__InstrumentationKey
               value: {{ .instrumentationKey }}
-              {{- end }}{{ end }}
+                {{- end }}
+              {{- end }}
             - name: Logging__LogLevel__Default
               value: {{ .Values.byodc.config.logLevel }}
             - name: Helipad__BaseUrl
               value: {{ .Values.byodc.config.helipad.baseUrl }}
-              {{- with .Values.byodc.proxy }}{{ range $key, $value := . }}{{if $value }}
+              {{- with .Values.byodc.proxy }}
+                {{- range $key, $value := . }}
+                  {{- if $value }}
             - name: {{ $key | upper }}_PROXY
               value: {{ $value | quote }}
-              {{- end }}{{ end }}{{ end }}
-              {{- with .Values.byodc.config.env }}{{ range $value := . }}{{if $value }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
+              {{- with .Values.byodc.config.env }}
+                {{- range $value := . }}
+                  {{- if $value }}
             - {{ toYaml $value | nindent 14 | trim -}}
-              {{- end }}{{ end }}{{ end }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
           livenessProbe:
             httpGet:
               path: /health/live
