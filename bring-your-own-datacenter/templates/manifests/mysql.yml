@@ -12,7 +12,9 @@ spec:
       targetPort: 3306
   selector:
     app: mysql
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
