@@ -1,0 +1,101 @@
+{{- range $instance := .Values.fcc.instances }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fcc-{{ $instance.vtssId }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fcc-{{ $instance.vtssId }}
+  template:
+    metadata:
+      labels:
+        app: fcc-{{ $instance.vtssId }}
+    spec:
+      volumes:
+        - name: fcc-{{ $instance.vtssId }}
+          persistentVolumeClaim:
+            claimName: fcc-{{ $instance.vtssId }}-claim
+      {{- if $.Values.fcc.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ $.Values.fcc.image.pullSecret }}
+      {{- end }}
+      containers:
+        - name: fcc-{{ $instance.vtssId }}
+          {{- if $.Values.local }}
+          imagePullPolicy: IfNotPresent
+          {{- else }}
+          imagePullPolicy: Always
+          {{- end }}
+          image: {{ $.Values.fcc.image.name }}:{{ $.Values.fcc.image.tag }}
+          resources:
+            limits:
+            {{- range $key, $value := $.Values.fcc.config.limits }}
+              {{ $key }}: {{ $value }}
+            {{- end }}
+          ports:
+            - containerPort: 20001
+          volumeMounts:
+            - name: fcc-{{ $instance.vtssId }}
+              mountPath: /fcc
+          env:
+            - name: vtssId
+              value: {{ $instance.vtssId | quote }}
+            - name: vtssSecret
+              value: {{ $instance.vtssSecret | quote }}
+              {{- with $.Values.fcc.proxy }}
+                {{- range $key, $value := . }}
+                  {{- if $value }}
+            - name: {{ $key | upper }}_PROXY
+              value: {{ $value | quote }}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
+              {{- with $.Values.fcc.config.env }}
+                {{- range $value := . }}
+                  {{- if $value }}
+            - {{ toYaml $value | nindent 14 | trim -}}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
+              {{- with $instance.env }}
+                {{- range $value := . }}
+                  {{- if $value }}
+            - {{ toYaml $value | nindent 14 | trim -}}
+                  {{- end }}
+                {{- end }}
+              {{- end }}
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: fcc-{{ $instance.vtssId }}-claim
+spec:
+  storageClassName: {{ $.Values.fcc.config.storage.class }}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ $.Values.fcc.config.storage.capacity }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fcc-{{ $instance.vtssId }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 20001
+  selector:
+    app: fcc-{{ $instance.vtssId }}
+
+---
+{{- end }}

@@ -11,6 +11,7 @@ byodc:
     https: null
     "no": null
     ftp: null
+    all: null
   # configuration settings for the byodc
   config:
     redis:
@@ -38,6 +39,36 @@ byodc:
       connect: 15_000
     # array of environment variables (see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core) for the byodc deployment
     env: null
+
+fcc:
+  # Set docker image and tag for the fcc
+  image:
+    name: fscloudapps.azurecr.io/servicestack/fiskal-cloud-connector
+    # use to override the default version
+    tag: latest
+    pullSecret: false
+  # proxy settings for the fcc container maps to these env variables https://docs.docker.com/network/proxy/#set-the-environment-variables-manually
+  proxy:
+    http: null
+    https: null
+    "no": null
+    ftp: null
+    all: null
+  # configuration settings for the fcc
+  config:
+    # pod limits
+    limits:
+      cpu: 500m
+      memory: 1000Mi
+    # http timeouts
+    # array of environment variables (see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core) for the byodc deployment
+    env: null
+    storage:
+      # storageClassName to use in the persistentVolumeClaim
+      class: ""
+      # storage capacity to request in the persistentVolumeClaim
+      capacity: 1Gi
+  instances: []
 
 redis:
   # enable redis
