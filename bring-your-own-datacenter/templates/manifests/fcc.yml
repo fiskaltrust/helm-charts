@@ -1,29 +1,30 @@
 {{- range $instance := .Values.fcc.instances }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: fcc-{{ $instance.vtssId }}
+  name: {{ $instance.vtssId }}
   namespace: {{ $.Release.Namespace }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fcc-{{ $instance.vtssId }}
+      app: {{ $instance.vtssId }}
+  serviceName: {{ $instance.vtssId }}
   template:
     metadata:
       labels:
-        app: fcc-{{ $instance.vtssId }}
+        app: {{ $instance.vtssId }}
     spec:
       volumes:
-        - name: fcc-{{ $instance.vtssId }}
+        - name: {{ $instance.vtssId }}
           persistentVolumeClaim:
-            claimName: fcc-{{ $instance.vtssId }}-claim
+            claimName: {{ $instance.vtssId }}-claim
       {{- if $.Values.fcc.image.pullSecret }}
       imagePullSecrets:
         - name: {{ $.Values.fcc.image.pullSecret }}
       {{- end }}
       containers:
-        - name: fcc-{{ $instance.vtssId }}
+        - name: {{ $instance.vtssId }}
           {{- if $.Values.local }}
           imagePullPolicy: IfNotPresent
           {{- else }}
@@ -38,13 +39,13 @@ spec:
           ports:
             - containerPort: 20001
           volumeMounts:
-            - name: fcc-{{ $instance.vtssId }}
+            - name: {{ $instance.vtssId }}
               mountPath: /fcc
           env:
             - name: vtssId
-              value: {{ $instance.vtssId | quote }}
+              value: {{ $instance.vtssId }}
             - name: vtssSecret
-              value: {{ $instance.vtssSecret | quote }}
+              value: {{ $instance.vtssSecret }}
               {{- with $.Values.fcc.proxy }}
                 {{- range $key, $value := . }}
                   {{- if $value }}
@@ -73,7 +74,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: fcc-{{ $instance.vtssId }}-claim
+  name: {{ $instance.vtssId }}-claim
 spec:
   storageClassName: {{ $.Values.fcc.config.storage.class }}
   accessModes:
@@ -87,7 +88,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fcc-{{ $instance.vtssId }}
+  name: {{ $instance.vtssId }}
   namespace: {{ $.Release.Namespace }}
 spec:
   ports:
@@ -95,7 +96,7 @@ spec:
       protocol: TCP
       port: 20001
   selector:
-    app: fcc-{{ $instance.vtssId }}
+    app: {{ $instance.vtssId }}
 
 ---
 {{- end }}
