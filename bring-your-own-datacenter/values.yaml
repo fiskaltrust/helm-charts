@@ -59,7 +59,7 @@ fcc:
     # pod limits
     limits:
       cpu: 500m
-      memory: 1000Mi
+      memory: 1500Mi
     # http timeouts
     # array of environment variables (see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.22/#envvar-v1-core) for the byodc deployment
     env: null
