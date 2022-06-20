@@ -12,6 +12,6 @@ sources:
   - https://github.com/fiskaltrust/helm-charts/tree/master/bring-your-own-datacenter
 dependencies:
   - name: emissary-ingress
-    version: 7.3.2
+    version: 7.4.1
     repository: https://app.getambassador.io
     condition: emissary-ingress.install
