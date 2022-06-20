@@ -68,7 +68,18 @@ spec:
                   {{- end }}
                 {{- end }}
               {{- end }}
-
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 20001
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          startupProbe:
+            httpGet:
+              path: /actuator/info
+              port: 20001
+            failureThreshold: 60
+            periodSeconds: 10
 ---
 
 apiVersion: v1
