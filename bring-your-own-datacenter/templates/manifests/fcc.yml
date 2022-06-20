@@ -23,6 +23,10 @@ spec:
       imagePullSecrets:
         - name: {{ $.Values.fcc.image.pullSecret }}
       {{- end }}
+      {{- with $.Values.fcc.config.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ $instance.vtssId }}
           {{- if $.Values.local }}

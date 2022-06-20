@@ -14,6 +14,7 @@ byodc:
     all: null
   # configuration settings for the byodc
   config:
+    nodeSelector: {}
     redis:
       # hostname of the redis instance (only change if using external redis instance)
       host: redis.{{ .Release.Namespace }}
@@ -56,6 +57,7 @@ fcc:
     all: null
   # configuration settings for the fcc
   config:
+    nodeSelector: {}
     # pod limits
     limits:
       cpu: 1000m
@@ -73,6 +75,8 @@ fcc:
 redis:
   # enable redis
   enabled: true
+  config:
+    nodeSelector: {}
 
 loadbalancer:
   config:
@@ -98,6 +102,8 @@ emissary-ingress:
   install: true
   # controls the replicacount of emissary
   replicaCount: 2
+  # sets the emissary ingress pod node selector
+  nodeSelector: {}
   scope:
     # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
     singleNamespace: true

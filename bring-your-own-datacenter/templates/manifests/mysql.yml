@@ -29,6 +29,10 @@ spec:
       labels:
         app: mysql
     spec:
+      {{- with $.Values.byodc.config.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - image: mysql:5.7
           name: mysql

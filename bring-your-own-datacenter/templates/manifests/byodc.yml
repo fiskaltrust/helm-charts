@@ -17,6 +17,10 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.byodc.image.pullSecret }}
       {{- end }}
+      {{- with .Values.byodc.config.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: byodc
           {{- if .Values.local }}
