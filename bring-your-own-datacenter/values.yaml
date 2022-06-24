@@ -54,7 +54,6 @@ fcc:
     https: null
     "no": null
     ftp: null
-    all: null
   # configuration settings for the fcc
   config:
     nodeSelector: {}

@@ -72,18 +72,19 @@ spec:
                   {{- end }}
                 {{- end }}
               {{- end }}
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 20001
-            initialDelaySeconds: 30
-            periodSeconds: 30
-          startupProbe:
-            httpGet:
-              path: /actuator/info
-              port: 20001
-            failureThreshold: 60
-            periodSeconds: 10
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: 20001
+          #   initialDelaySeconds: 60
+          #   periodSeconds: 30
+          # startupProbe:
+          #   httpGet:
+          #     path: /actuator/info
+          #     port: 20001
+          #   failureThreshold: 60
+          #   periodSeconds: 15
+
 ---
 
 apiVersion: v1
@@ -91,12 +92,20 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ $instance.vtssId }}-claim
 spec:
-  storageClassName: {{ $.Values.fcc.config.storage.class }}
+  storageClassName: {{ with $instance.storageClass }}
+    {{- . }}
+  {{- else }}
+    {{- $.Values.fcc.config.storage.class }}
+  {{- end }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ $.Values.fcc.config.storage.capacity }}
+      storage: {{ with $instance.storageCapacity }}
+        {{- . }}
+      {{- else }}
+        {{- $.Values.fcc.config.storage.capacity }}
+      {{- end }}
 
 ---
 
