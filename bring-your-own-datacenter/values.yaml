@@ -14,6 +14,7 @@ byodc:
     all: null
   # configuration settings for the byodc
   config:
+    # sets the nodeSelector property of the byodc pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     nodeSelector: {}
     redis:
       # hostname of the redis instance (only change if using external redis instance)
@@ -56,6 +57,7 @@ fcc:
     ftp: null
   # configuration settings for the fcc
   config:
+    # sets the nodeSelector property of the fcc pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     nodeSelector: {}
     # pod limits
     limits:
@@ -75,6 +77,7 @@ redis:
   # enable redis
   enabled: true
   config:
+    # sets the nodeSelector property of the redis pod https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     nodeSelector: {}
 
 loadbalancer:
@@ -101,7 +104,7 @@ emissary-ingress:
   install: true
   # controls the replicacount of emissary
   replicaCount: 2
-  # sets the emissary ingress pod node selector
+  # sets the nodeSelector property of the emissary ingress pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
   nodeSelector: {}
   scope:
     # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
