@@ -12,7 +12,9 @@ spec:
       targetPort: 3306
   selector:
     app: mysql
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,6 +29,10 @@ spec:
       labels:
         app: mysql
     spec:
+      {{- with $.Values.byodc.config.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - image: mysql:5.7
           name: mysql
