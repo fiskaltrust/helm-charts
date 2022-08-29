@@ -1,8 +1,8 @@
 apiVersion: v2
 name: bring-your-own-datacenter
 type: application
-version: 1.3.34
-kubeVersion: ^1.22.0
+version: 1.3.38
+kubeVersion: ^v1.22.0-0
 keywords:
   - fiskaltrust
   - byodc
