@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* Kubernetes cluster > v1.16
+* Kubernetes cluster > v1.22.0
 * helm > v3.0
 
 ## Installation
