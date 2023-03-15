@@ -109,7 +109,7 @@ The following steps will update the helm repo, uninstall the helm chart, delete 
 > helm install bring-your-own-datcenter fiskaltrust/bring-your-own-datacenter -f new.config.yaml -n bring-your-own-datacenter --version 1.3.26
 > ```
 
-## `v1.3.44`
+## `v1.3.45`
 
 ### Background
 
@@ -164,5 +164,5 @@ Instead you can now configure the proxy settings directly in the `byodc.proxy` v
    ```
 4. Install the new helm chart
    ```sh
-   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.44-rc.1 --devel
+   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.45-rc1 --devel
    ```
