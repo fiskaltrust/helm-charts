@@ -7,6 +7,10 @@
 
 ## Installation
 
+### Install Emissary Ingress
+
+Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/latest/topics/install/helm).
+
 ### Create Namespace
 
 Connect to your Kubernetes cluster and create the `bring-your-own-datacenter` namespace.
@@ -55,5 +59,10 @@ helm uninstall bring-your-own-datacenter --namespace bring-your-own-datacenter
 kubectl delete namespace bring-your-own-datacenter
 ```
 
+## Updating
 
-<!-- helm dependency update -->
+Please check the [migration guide](./MIGRATION.md) for specific update instructions to your version. If none are mentioned you can update like this:
+
+```sh
+helm upgrade --install bring-your-own-datcenter fiskaltrust/bring-your-own-datacenter --namespace bring-your-own-datacenter -f config.yaml
+```

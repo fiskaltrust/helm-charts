@@ -108,3 +108,61 @@ The following steps will update the helm repo, uninstall the helm chart, delete 
 > helm repo update
 > helm install bring-your-own-datcenter fiskaltrust/bring-your-own-datacenter -f new.config.yaml -n bring-your-own-datacenter --version 1.3.26
 > ```
+
+## `v1.3.44`
+
+### Background
+
+In this version we took the emissary ingress installation out of the helm chart.
+This will fixes issues with multiple installations and will ease future updates.
+
+The emissary ingress now needs to be installed and configured in a seperate step before the byodc helm chart is installed.
+
+### Migration Guide
+
+#### Update `config.yaml`
+
+##### Emissary Ingress
+The following configuration values were moved:
+
+| old path                          | new path            |
+|-----------------------------------|---------------------|
+| `loadbalancer.config.tls.enabled` | `emissary.tls`      |
+| `loadbalancer.config.hostname`    | `emissary.hostname` |
+
+
+The `emissary-ingress` configuration section was removed.
+Emissary ingress needs to be configured from [its own chart](https://artifacthub.io/packages/helm/datawire/emissary-ingress/#configuration).
+
+##### Proxy
+
+We've also deprecated the `byodc.proxy.http`, `byodc.proxy.https`, `byodc.proxy.no`, `byodc.proxy.ftp` and `byodc.proxy.all` variables.
+These variables still work but willbe removed in a future version.
+
+Instead you can now configure the proxy settings directly in the `byodc.proxy` variable using a [proxy string like its use in the fiskaltrust.Middleware](https://docs.fiskaltrust.cloud/docs/posdealers/technical-operations/middleware/network-requirements#setting-the-proxy-configuration).
+
+#### Perform upgrade
+
+1. List all helm releases
+   ```sh
+   helm list
+   ```
+2. Uninstall the `byodc` release listed by the previous command.
+   ```sh
+   helm uninstall <release-name> -n <byodc-namespace>
+   ```
+   > ***Note:** If helm can not uninstall of find the release the whole namespace can be deleted and recreated like this:*
+   > ```sh
+   > kubectl delete namespace <byodc-namespace>`
+   > `kubectl create namespace <byodc-namespace>`
+   > ```
+3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/latest/topics/install/helm).
+   > ***Note:** When performing the `helm install` step you can also provide a `config.yaml` file to configure emissary ingress.*
+4. Update the helm repository
+   ```sh
+   helm repo update
+   ```
+4. Install the new helm chart
+   ```sh
+   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.44-rc.1
+   ```
