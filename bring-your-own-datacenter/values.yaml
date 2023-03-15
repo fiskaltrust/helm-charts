@@ -1,17 +1,12 @@
 byodc:
-  # Set docker image and tag for the byodc
+  # set docker image and tag for the byodc
   image:
     name: ghcr.io/fiskaltrust/byodc
     # use to override the default version
     tag: 1.3-buster
     pullSecret: false
-  # proxy settings for the byodc container maps to these env variables https://docs.docker.com/network/proxy/#set-the-environment-variables-manually
-  proxy:
-    http: null
-    https: null
-    "no": null
-    ftp: null
-    all: null
+  # proxy string for the byodc pod (see https://docs.fiskaltrust.cloud/docs/posdealers/technical-operations/middleware/network-requirements#setting-the-proxy-configuration)
+  proxy: null
   # configuration settings for the byodc
   config:
     # sets the nodeSelector property of the byodc pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
@@ -49,12 +44,6 @@ fcc:
     # use to override the default version
     tag: latest
     pullSecret: false
-  # proxy settings for the fcc container maps to these env variables https://docs.docker.com/network/proxy/#set-the-environment-variables-manually
-  proxy:
-    http: null
-    https: null
-    "no": null
-    ftp: null
   # configuration settings for the fcc
   config:
     # sets the nodeSelector property of the fcc pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
@@ -86,8 +75,6 @@ loadbalancer:
     # you can use `--set-file loadbalancer.config.tls.crt="./cert.pem"` to pass files to the helm command. please make sure the files start with `-----BEGIN [...]`.
     # the cert file may also contain intermediate certificates
     tls:
-      # enables tls
-      enabled: false
       # set cert as base64 encoded file contents
       crtBase64: null
       # set key as base64 encoded file contents
@@ -96,30 +83,12 @@ loadbalancer:
       crt: null
       # set key as file contents
       key: null
-    # hostname by which ambasador is reachable
-    hostname: "*"
 
-emissary-ingress:
-  # installs emissary-ingress
-  install: true
-  # controls the replicacount of emissary
-  replicaCount: 2
-  # sets the nodeSelector property of the emissary ingress pods https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
-  nodeSelector: {}
-  scope:
-    # neccesairy for running multiple deployments of byodc each with their own emissary-ingress
-    singleNamespace: true
-  service:
-    # these are the ports the emissary-ingeress loadbalancer listenes on.
-    # always set both entries with all keys in your config.yaml as these are not merged
-    ports:
-      # always set name to "http"
-    - name: http
-      # change this port for http
-      port: 80
-      targetPort: 8080
-      # always set name to "https"
-    - name: https
-      # change this port for https
-      port: 443
-      targetPort: 8443
+# configuration for the emissary load balancer
+emissary:
+  # if the emissary custom ressources are deployed
+  use: true
+  # if tls is enabled
+  tls: false
+  # hostname by which ambasador is reachable
+  hostname: "*"

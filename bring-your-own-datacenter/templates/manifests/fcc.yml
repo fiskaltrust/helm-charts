@@ -50,14 +50,6 @@ spec:
               value: {{ $instance.vtssId }}
             - name: vtssSecret
               value: {{ $instance.vtssSecret }}
-              {{- with $.Values.fcc.proxy }}
-                {{- range $key, $value := . }}
-                  {{- if $value }}
-            - name: {{ $key | upper }}_PROXY
-              value: {{ $value | quote }}
-                  {{- end }}
-                {{- end }}
-              {{- end }}
               {{- with $.Values.fcc.config.env }}
                 {{- range $value := . }}
                   {{- if $value }}
