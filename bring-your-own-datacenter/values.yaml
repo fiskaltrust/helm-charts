@@ -90,5 +90,5 @@ emissary:
   use: true
   # if tls is enabled
   tls: false
-  # hostname by which ambasador is reachable
+  # hostname by which emissary is reachable
   hostname: "*"
