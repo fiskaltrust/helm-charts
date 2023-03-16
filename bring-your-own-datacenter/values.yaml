@@ -5,7 +5,7 @@ byodc:
     # use to override the default version
     tag: 1.3-buster
     pullSecret: false
-  # proxy string for the byodc pod (see https://docs.fiskaltrust.cloud/docs/posdealers/technical-operations/middleware/network-requirements#setting-the-proxy-configuration)
+  # proxy string for the byodc pod (see https://link.fiskaltrust.cloud/rollout/proxy)
   proxy: null
   # configuration settings for the byodc
   config:
