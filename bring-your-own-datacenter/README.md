@@ -9,7 +9,7 @@
 
 ### Install Emissary Ingress
 
-Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/latest/topics/install/helm).
+Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/3.5/topics/install/helm).
 
 ### Create Namespace
 
