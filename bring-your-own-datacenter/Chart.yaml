@@ -1,7 +1,7 @@
 apiVersion: v2
 name: bring-your-own-datacenter
 type: application
-version: 1.3.38
+version: 1.3.45-rc1
 kubeVersion: ^v1.22.0-0
 keywords:
   - fiskaltrust
@@ -10,8 +10,3 @@ keywords:
 home: https://github.com/fiskaltrust/product-de-bring-your-own-datacenter
 sources:
   - https://github.com/fiskaltrust/helm-charts/tree/master/bring-your-own-datacenter
-dependencies:
-  - name: emissary-ingress
-    version: 7.4.1
-    repository: https://app.getambassador.io
-    condition: emissary-ingress.install

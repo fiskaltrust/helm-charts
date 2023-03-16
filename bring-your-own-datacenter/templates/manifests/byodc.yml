@@ -52,10 +52,15 @@ spec:
             - name: Helipad__BaseUrl
               value: {{ .Values.byodc.config.helipad.baseUrl }}
               {{- with .Values.byodc.proxy }}
-                {{- range $key, $value := . }}
-                  {{- if $value }}
+                {{- if kindIs "string" . }}
+            - name: Proxy
+              value: {{ . | quote }}
+                {{- else if kindIs "map" . }}
+                  {{- range $key, $value := . }}
+                    {{- if $value }}
             - name: {{ $key | upper }}_PROXY
               value: {{ $value | quote }}
+                    {{- end }}
                   {{- end }}
                 {{- end }}
               {{- end }}
