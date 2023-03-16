@@ -139,7 +139,7 @@ Emissary ingress needs to be configured from [its own chart](https://artifacthub
 We've also deprecated the `byodc.proxy.http`, `byodc.proxy.https`, `byodc.proxy.no`, `byodc.proxy.ftp` and `byodc.proxy.all` variables.
 These variables still work but willbe removed in a future version.
 
-Instead you can now configure the proxy settings directly in the `byodc.proxy` variable using a [proxy string like its use in the fiskaltrust.Middleware](https://docs.fiskaltrust.cloud/docs/posdealers/technical-operations/middleware/network-requirements#setting-the-proxy-configuration).
+Instead you can now configure the proxy settings directly in the `byodc.proxy` variable using a [proxy string like its use in the fiskaltrust.Middleware](https://link.fiskaltrust.cloud/rollout/proxy).
 
 #### Perform upgrade
 
@@ -156,7 +156,7 @@ Instead you can now configure the proxy settings directly in the `byodc.proxy` v
    > kubectl delete namespace <byodc-namespace>`
    > `kubectl create namespace <byodc-namespace>`
    > ```
-3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/latest/topics/install/helm).
+3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/3.5/topics/install/helm).
    > ***Note:** When performing the `helm install` step you can also provide a `config.yaml` file to configure emissary ingress.*
 4. Update the helm repository
    ```sh
