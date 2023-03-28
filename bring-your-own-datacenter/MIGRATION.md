@@ -153,8 +153,8 @@ Instead you can now configure the proxy settings directly in the `byodc.proxy` v
    ```
    > ***Note:** If helm can not uninstall of find the release the whole namespace can be deleted and recreated like this:*
    > ```sh
-   > kubectl delete namespace <byodc-namespace>`
-   > `kubectl create namespace <byodc-namespace>`
+   > kubectl delete namespace <byodc-namespace>
+   > kubectl create namespace <byodc-namespace>
    > ```
 3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/3.5/topics/install/helm).
    > ***Note:** When performing the `helm install` step you can also provide a `config.yaml` file to configure emissary ingress.*
