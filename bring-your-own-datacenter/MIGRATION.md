@@ -81,8 +81,8 @@ The following steps will update the helm repo, uninstall the helm chart, delete 
    ```
    > ***Note:** If helm can not uninstall of find the release the whole namespace can be deleted and recreated like this:*
    > ```sh
-   > kubectl delete namespace <byodc-namespace>`
-   > `kubectl create namespace <byodc-namespace>`
+   > kubectl delete namespace <byodc-namespace>
+   > kubectl create namespace <byodc-namespace>
    > ```
 3. Delete the old CRDs
    ```sh
