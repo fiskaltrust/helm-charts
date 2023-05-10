@@ -156,7 +156,7 @@ Instead you can now configure the proxy settings directly in the `byodc.proxy` v
    > kubectl delete namespace <byodc-namespace>
    > kubectl create namespace <byodc-namespace>
    > ```
-3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/3.5/topics/install/helm).
+3. Install emissary ingress v3.x. Please follow the [official installation instructions](https://www.getambassador.io/docs/emissary/3.6/topics/install/helm).
    > ***Note:** When performing the `helm install` step you can also provide a `config.yaml` file to configure emissary ingress.*
 4. Update the helm repository
    ```sh
@@ -164,5 +164,5 @@ Instead you can now configure the proxy settings directly in the `byodc.proxy` v
    ```
 4. Install the new helm chart
    ```sh
-   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.45-rc1 --devel
+   helm install <release-name> fiskaltrust/bring-your-own-datacenter -f <path-to-config-yaml> -n <byodc-namespace> --version 1.3.45
    ```
