@@ -3,7 +3,7 @@ byodc:
   image:
     name: ghcr.io/fiskaltrust/byodc
     # use to override the default version
-    tag: 1.3-buster
+    tag: 1.3-bullseye
     pullSecret: false
   # proxy string for the byodc pod (see https://link.fiskaltrust.cloud/rollout/proxy)
   proxy: null
@@ -92,3 +92,7 @@ emissary:
   tls: false
   # hostname by which emissary is reachable
   hostname: "*"
+
+prometheus:
+  # deploys monitoring.coreos.com/v1 `ServiceMonitor` for byodc pods. can be used with https://github.com/prometheus-operator/prometheus-operator
+  deployServiceMonitor: false

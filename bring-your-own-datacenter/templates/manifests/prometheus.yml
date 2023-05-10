@@ -1,0 +1,20 @@
+{{ with.Values.prometheus }}{{ if .deployServiceMonitor -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: byodc
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: byodc
+spec:
+  selector:
+    matchLabels:
+      app: byodc
+  namespaceSelector:
+    matchNames:
+      - {{ $.Release.Namespace }}
+  endpoints:
+  - port: prometheus
+  targetLabels:
+    - app
+{{- end }}{{ end }}

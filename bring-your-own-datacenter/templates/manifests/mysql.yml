@@ -34,7 +34,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - image: mysql:5.7
+        - image: mysql:latest
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
