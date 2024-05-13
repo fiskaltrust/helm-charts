@@ -24,6 +24,9 @@ byodc:
     # helipad used by the byodc
     helipad:
       baseUrl: https://helipad-sandbox.fiskaltrust.cloud
+    # PosApiPrint used by the byodc
+    posApi:
+      baseUrl: https://pos-api-sandbox.fiskaltrust.cloud
     # number of byodc instances
     replicas: 10
     # pod limits
