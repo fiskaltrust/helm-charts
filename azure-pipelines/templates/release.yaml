@@ -24,7 +24,7 @@ steps:
       }
     displayName: Update Index
 
-  - task: AzureFileCopy@4
+  - task: AzureFileCopy@6
     displayName: Upload Repo
     inputs:
       sourcePath: $(Pipeline.Workspace)/Packaged/${{ parameters.chart }}/*
