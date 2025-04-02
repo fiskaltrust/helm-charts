@@ -3,7 +3,7 @@ byodc:
   image:
     name: ghcr.io/fiskaltrust/byodc
     # use to override the default version
-    tag: 1.3-bullseye
+    tag: 1.3-bookworm
     pullSecret: false
   # proxy string for the byodc pod (see https://link.fiskaltrust.cloud/rollout/proxy)
   proxy: null
