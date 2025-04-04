@@ -24,7 +24,7 @@ stages:
             parameters:
               chart: 'bring-your-own-datacenter'
               url: https://charts-dev.fiskaltrust.cloud
-              subscription: fiskaltrust-develop
+              subscription: ft-msft-mca-consulting-development-common
               storage: fta240helmrepository
 
 - stage: Release_Chart_Prod
