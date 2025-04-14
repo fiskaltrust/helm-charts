@@ -29,10 +29,12 @@ byodc:
       baseUrl: https://pos-api-sandbox.fiskaltrust.cloud
     # number of byodc instances
     replicas: 10
-    # pod limits
+    # pod resource limits
     limits:
       cpu: 500m
       memory: 1000Mi
+    # pod resource requests
+    requests: {}
     # http timeouts
     timeout:
       all: 900_000
