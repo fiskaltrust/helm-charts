@@ -34,6 +34,10 @@ spec:
             {{- range $key, $value := .Values.byodc.config.limits }}
               {{ $key }}: {{ $value }}
             {{- end }}
+            requests:
+            {{- range $key, $value := .Values.byodc.config.requests }}
+              {{ $key }}: {{ $value }}
+            {{- end }}
           ports:
             - containerPort: 80
             - containerPort: 8080
