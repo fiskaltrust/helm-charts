@@ -71,6 +71,10 @@ redis:
   # enable redis
   enabled: true
   config:
+    # redis pod resource limits
+    limits: {}
+    # redis pod resource requests
+    requests: {}
     # sets the nodeSelector property of the redis pod https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
     nodeSelector: {}
 
